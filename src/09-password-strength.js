@@ -27,4 +27,40 @@
  */
 export function checkPasswordStrength(password) {
   // Your code here
+  function upperCase(params) {
+    return /[A-Z]/.test(params)
+  }
+  function lowerCase(params) {
+    return /[a-z]/.test(params)
+  }
+  function numberCase(params) {
+    return /\d/.test(params)
+  }
+  function specialCharCase(params) {
+    const specialChars = /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/;
+
+    // The test() method returns true if a match is found, otherwise false
+    return specialChars.test(params);
+
+  }
+
+  let score = 0
+
+  if (password?.length === 0 || typeof password !== "string") {
+    return "weak"
+  }
+  if (password.length >= 8) score++;
+  if (upperCase(password)) score++;
+  if (lowerCase(password)) score++;
+  if (numberCase(password)) score++;
+  if (specialCharCase(password)) score++;
+  if (password.length >= 8 && upperCase(password) && lowerCase(password) && numberCase(password) && specialCharCase(password)) {
+    return "very strong"
+  } else if (score <= 1) {
+    return "weak"
+  } else if (score <= 3) {
+    return "medium"
+  } else if (score <= 4) {
+    return "strong"
+  }
 }
